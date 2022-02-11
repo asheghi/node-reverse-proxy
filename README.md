@@ -9,6 +9,8 @@ to deploy multiple node.js applications on the same server I needed an  **ultra 
 ---
 
 ### Usage:
+> let's suppose we we have a application up and running in our server on port 3000, and we have domain.com pointing to server ip.
+
 1.install package
 ```bash
 git clone https://github.com/semycolon/node-reverse-proxy.git
