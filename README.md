@@ -1,5 +1,3 @@
-# node-reverse-proxy
-
 ## Super Simple ReverseProxy
 
 ### what
@@ -18,9 +16,9 @@ cd node-reverse-proxy
 npm i
 ```
 
-2.define virtual hosts
-touch sites/domain.com.json
-```json
+2.define virtual hosts in hosts directory
+```js
+// sites/domain.com.json
 {
   "host":"localhost",
   "port":3000,
