@@ -1,5 +1,4 @@
 const http = require("http")
-const util = require("util")
 const request = require('request')
 const express = require('express')
 const app = express();
@@ -19,7 +18,11 @@ app.use((req, res) => {
   return vhost.middleware(req,res);
 })
 
-http.createServer(app).listen(80)
+let port = process.env.PORT || 80;
+const host = process.env.host || '127.0.0.1';
+http.createServer(app).listen(port,host,() => {
+  console.log(`Proxy is listening at http://${host}:${port}`);
+})
 
 
 function loadSites() {
@@ -42,11 +45,28 @@ function loadSites() {
   return obj;
 }
 
+function getForwardedForHeader(headers, req) {
+  let forwardedFor = '';
+  if (headers['cf-connecting-ip']) {
+    forwardedFor += headers['cf-connecting-ip'] + ', ';
+  }
+  if (headers['x-forwarded-for']) {
+    forwardedFor += headers['x-forwarded-for'] + ', ';
+  }
+  if (req.connection.remoteAddress) {
+    forwardedFor += req.connection.remoteAddress;
+  }
+  return forwardedFor;
+}
+
 function getMiddleware(vhost){
   const app = express.Router();
   app.use(morgan(`:method ${vhost.domain} :url :status :res[content-length] - :response-time ms`))
   app.use( (req,res) => {
     const headers = req.headers;
+    headers['x-forwarded-proto'] = req.headers['x-forwarded-proto'] || (req.connection.encrypted) ? 'https' : 'http';
+    headers['x-forwarded-for'] = getForwardedForHeader(headers, req);
+
     const url = `${vhost.protocol}://${vhost.host}:${vhost.port}${req.url}`;
     const x = request({
       method: req.method,
