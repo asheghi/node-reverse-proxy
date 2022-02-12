@@ -66,7 +66,7 @@ function getMiddleware(vhost){
     const headers = req.headers;
     headers['x-forwarded-proto'] = req.headers['x-forwarded-proto'] || (req.connection.encrypted) ? 'https' : 'http';
     headers['x-forwarded-for'] = getForwardedForHeader(headers, req);
-
+    headers['x-forwarded-host'] = vhost.domain;
     const url = `${vhost.protocol}://${vhost.host}:${vhost.port}${req.url}`;
     const x = request({
       method: req.method,
