@@ -38,5 +38,5 @@ it's recoommended to use PM2 to keep app running. you can also make pm2 listen t
 
 ## todos
 - [ ] forward websocket
-- [ ] rewrite headers
+- [ ] rewrite headers function
 
