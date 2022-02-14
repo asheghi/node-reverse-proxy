@@ -1,0 +1,4 @@
+- [ ] add cli feature
+- [ ] add cli site-config generator
+- [ ] add linter (eslint)
+- [ ] add a file-based logging mechanism
