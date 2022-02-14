@@ -2,3 +2,4 @@
 - [ ] add cli site-config generator
 - [ ] add linter (eslint)
 - [ ] add a file-based logging mechanism
+- [ ] add http cache functionality
