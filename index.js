@@ -37,6 +37,7 @@ let port = process.env.PORT || 80;
 const host = process.env.HOST || '0.0.0.0';
 http.createServer(app).listen(port, host, () => {
   console.log(`Proxy is listening at http://${host}:${port}`);
+  process.send('ready');
 })
 
 
