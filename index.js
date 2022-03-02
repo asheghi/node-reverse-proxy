@@ -1,3 +1,4 @@
+console.log("it's in the top");
 const http = require("http")
 const request = require('request')
 const express = require('express')
@@ -111,3 +112,4 @@ function getMiddleware(vhost) {
   });
   return app;
 }
+console.log('oh my god')
